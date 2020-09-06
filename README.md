@@ -1,1 +1,1 @@
-# laba_15_gcp_terraform
+# laba_16_gcp_terraform
