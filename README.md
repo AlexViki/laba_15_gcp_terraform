@@ -11,6 +11,7 @@
 
 ### Initialization Terraform
 need to go to folder with file *.tf
+
 `terraform init`
 
 ### Plan your changes
