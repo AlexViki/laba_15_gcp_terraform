@@ -2,8 +2,11 @@
 
 ### Install Terraform
 `wget https://releases.hashicorp.com/terraform/0.13.2/terraform_0.13.2_linux_amd64.zip`
+
 `unzip terraform*.zip`
+
 `sudo mv terraform /bin/`
+
 `terraform version`
 
 ### Initialization Terraform
@@ -21,4 +24,5 @@ description characteristics of which we described in the configuration file main
 
 ### Search for required resource attributes by state file
 `terraform show | grep nat_ip`
+
 `terraform show`
