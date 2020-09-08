@@ -1,16 +1,30 @@
 terraform {
     required_version = "0.13.2"
 }
+
 provider "google" {
-    project = "learn-286016"
-    region = "europe-west3"
+  version = "3.5.0"
+
+  credentials = file("/key/key-deployer-learn.json")
+
+  project   = "learn-286016"
+  region    = "europe-west3"
+  zone      = "europe-west3-c"
 }
 
-resource "google_compute_instance" "web-ser" {
+resource "google_compute_network" "vpc-web-network" {
+  name = "terraform-network"
+}
+
+resource "google_compute_address" "vm_static_ip" {
+  name = "terraform-static-ip"
+}
+
+resource "google_compute_instance" "web-srv" {
     name            = "web-ser-01"
     machine_type    = "g1-small"
-    zone            = "europe-west1-b"
-    tags            = ["web-ser"]
+#    zone            = "europe-west1-b"
+    tags            = ["web-srv", "web-test"]
 
     metadata = {
         ssh-keys    = "appuser:${file("/key/gcp_learn.pub")}"
@@ -25,7 +39,9 @@ resource "google_compute_instance" "web-ser" {
     }
 
     network_interface {
-        network     = "default"
-        access_config {}
+        network     = google_compute_network.vpc-web-network.self_link
+        access_config {
+            nat_ip = google_compute_address.vm_static_ip.address
+        }
     }
 }

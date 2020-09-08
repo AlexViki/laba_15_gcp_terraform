@@ -27,3 +27,6 @@ description characteristics of which we described in the configuration file main
 `terraform show | grep nat_ip`
 
 `terraform show`
+
+### Refresh data for outputs file
+`terraform refresh`
