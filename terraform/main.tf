@@ -20,6 +20,15 @@ resource "google_compute_address" "vm_static_ip" {
   name = "terraform-static-ip"
 }
 
+resource "google_storage_bucket" "web_bucket" {
+  name     = "alex-viki-web"
+
+  website {
+    main_page_suffix = "index.html"
+    not_found_page   = "404.html"
+  }
+}
+
 resource "google_compute_instance" "web-srv" {
     name            = "web-ser-01"
     machine_type    = "g1-small"
@@ -44,4 +53,6 @@ resource "google_compute_instance" "web-srv" {
             nat_ip = google_compute_address.vm_static_ip.address
         }
     }
+
+    depends_on = [google_storage_bucket.web_bucket]
 }
