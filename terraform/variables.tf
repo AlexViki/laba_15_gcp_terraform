@@ -10,7 +10,12 @@ variable "region" {
   default = "europe-west3"
 }
 
- variable "zone" {
+variable "zone" {
    type = string
    default = "europe-west3-c"
+}
+
+variable "network_name" {
+  type = string
+  default = "vpc-web-network"
 }

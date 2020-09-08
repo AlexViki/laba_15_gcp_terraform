@@ -14,6 +14,9 @@ need to go to folder with file *.tf
 
 `terraform init`
 
+### Command validates the configuration files in a directory
+`terraform validate`
+
 ### Plan your changes
 `terraform plan`
 
