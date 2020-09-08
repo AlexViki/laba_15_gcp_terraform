@@ -7,9 +7,9 @@ provider "google" {
 
   credentials = file("/key/key-deployer-learn.json")
 
-  project   = "learn-286016"
-  region    = "europe-west3"
-  zone      = "europe-west3-c"
+  project   = var.project
+  region    = var.region
+  zone      = var.zone
 }
 
 resource "google_compute_network" "vpc-web-network" {
