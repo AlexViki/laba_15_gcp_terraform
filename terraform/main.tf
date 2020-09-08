@@ -13,12 +13,12 @@ provider "google" {
 }
 
 resource "google_compute_network" "vpc-web-network" {
-  name = "terraform-network"
+  name = "we-terraform-network"
 }
 
-resource "google_compute_address" "vm_static_ip" {
-  name = "terraform-static-ip"
-}
+# resource "google_compute_address" "vm_static_ip" {
+#   name = "terraform-static-ip"
+# }
 
 resource "google_storage_bucket" "web_bucket" {
   name     = "alex-viki-web"
@@ -50,8 +50,12 @@ resource "google_compute_instance" "web-srv" {
     network_interface {
         network     = google_compute_network.vpc-web-network.self_link
         access_config {
-            nat_ip = google_compute_address.vm_static_ip.address
+#            nat_ip = google_compute_address.vm_static_ip.address
         }
+    }
+
+    provisioner "local-exec" {
+        command = "echo ${google_compute_instance.web-srv.name}:  ${google_compute_instance.web-srv.network_interface[0].access_config[0].nat_ip} >> /tmp/ip_address.txt"
     }
 
     depends_on = [google_storage_bucket.web_bucket]
