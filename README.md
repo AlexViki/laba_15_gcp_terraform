@@ -40,3 +40,6 @@ Result well be: Resource instance google_compute_instance.web-srv has been marke
 
 ### Format all config files using terraform command:
 `terraform fmt`
+
+### Resources can be destroyed using:
+`terraform destroy`
