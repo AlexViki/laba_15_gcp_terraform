@@ -54,9 +54,22 @@ resource "google_compute_instance" "web-srv" {
         }
     }
 
-    provisioner "local-exec" {
-        command = "echo ${google_compute_instance.web-srv.name}:  ${google_compute_instance.web-srv.network_interface[0].access_config[0].nat_ip} >> /tmp/ip_address.txt"
+    connection {
+        type = "ssh"
+        user = "appuser"
+        agent = false
+        private_key = "${file("/key/gcp_learn")}"
+        host = "${google_compute_instance.web-srv.network_interface[0].access_config[0].nat_ip}"
     }
+
+    provisioner "local-exec" {
+        command = "echo ${google_compute_instance.web-srv.name}:  ${google_compute_instance.web-srv.network_interface[0].access_config[0].nat_ip} > /tmp/ip_address.txt"
+    }
+
+    provisioner "remote-exec" {
+        script = "scripts/deploy.sh"
+    }
+
 
     depends_on = [google_storage_bucket.web_bucket]
 }

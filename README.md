@@ -33,3 +33,10 @@ description characteristics of which we described in the configuration file main
 
 ### Refresh data for outputs file
 `terraform refresh`
+
+`terraform taint google_compute_instance.name_your_instance`
+`terraform taint google_compute_instance.web-srv`
+Result well be: Resource instance google_compute_instance.web-srv has been marked as tainted.
+
+### Format all config files using terraform command:
+`terraform fmt`
